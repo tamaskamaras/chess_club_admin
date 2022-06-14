@@ -1,0 +1,13 @@
+require:
+  - rubocop-performance
+  - rubocop-discourse
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'db/schema.rb'
+
+Style/Documentation:
+  Enabled: false
