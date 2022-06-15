@@ -3,6 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Member do
+  describe 'Validation' do
+    subject(:member) { create(:member) }
+
+    it { is_expected.to validate_uniqueness_of(:email) }
+    it { is_expected.to validate_uniqueness_of(:rank) }
+  end
+
   describe '#rank' do
     context 'when a Member is created' do
       subject(:new_member) { create(:member) }

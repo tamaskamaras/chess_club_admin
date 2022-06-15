@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2022_06_15_130003) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_members_on_email", unique: true
+    t.index ["rank"], name: "index_members_on_rank", unique: true
   end
 
   add_foreign_key "matches", "members", column: "loser_id"

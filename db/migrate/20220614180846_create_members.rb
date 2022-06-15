@@ -7,7 +7,7 @@ class CreateMembers < ActiveRecord::Migration[6.1]
       t.string :last_name, null: false
       t.string :email, null: false, index: { unique: true }
       t.datetime :birthday, null: false
-      t.integer :rank
+      t.integer :rank, index: { unique: true }
 
       t.timestamps
     end

@@ -6,7 +6,8 @@ class Member < ApplicationRecord
 
   before_save :set_rank, if: :rank_blank?
 
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
+  validates :rank, uniqueness: true
 
   def matches
     Match.where('winner_id = :self_id OR loser_id = :self_id', self_id: id)
