@@ -9,19 +9,28 @@ RSpec.describe Match do
 
     context 'when winner is not specified' do
       it 'raises exception' do
-        expect { described_class.create!(loser: loser1) }.to raise_exception(ActiveRecord::RecordInvalid)
+        expect { described_class.create!(loser: loser1) }.to raise_exception(
+          ActiveRecord::RecordInvalid,
+          'Validation failed: Winner must exist'
+        )
       end
     end
 
     context 'when loser is not specified' do
       it 'raises exception' do
-        expect { described_class.create!(winner: winner1) }.to raise_exception(ActiveRecord::RecordInvalid)
+        expect { described_class.create!(winner: winner1) }.to raise_exception(
+          ActiveRecord::RecordInvalid,
+          'Validation failed: Loser must exist'
+        )
       end
     end
 
     context 'when neither winner nor loser are specified' do
       it 'raises exception' do
-        expect { described_class.create! }.to raise_exception(ActiveRecord::RecordInvalid)
+        expect { described_class.create! }.to raise_exception(
+          ActiveRecord::RecordInvalid,
+          'Validation failed: Winner must exist, Loser must exist'
+        )
       end
     end
 
