@@ -6,6 +6,9 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     email { Faker::Internet.email }
     birthday { Faker::Date.between(from: 100.years.ago, to: 21.years.ago) }
-    rank { Member.count + 1 }
+
+    trait :with_rank do
+      rank { Member.count + 1 }
+    end
   end
 end

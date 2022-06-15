@@ -3,6 +3,28 @@
 require 'rails_helper'
 
 RSpec.describe Member do
+  describe '#rank' do
+    context 'when a Member is created' do
+      subject(:new_member) { create(:member) }
+
+      context 'when the members table is empty' do
+        it 'returns 1' do
+          expect(new_member.rank).to eq(1)
+        end
+      end
+
+      context 'when 2 members are already created' do
+        before do
+          create_list(:member, 2)
+        end
+
+        it 'returns 3' do
+          expect(new_member.rank).to eq(3)
+        end
+      end
+    end
+  end
+
   describe '#matches' do
     context 'when 1 member had 2 matches' do
       subject(:member1) { create(:member) }
