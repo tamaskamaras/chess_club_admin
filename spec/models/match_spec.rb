@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Match do
-  describe 'creation' do
-    let(:winner1) { create(:member) }
-    let(:loser1) { create(:member) }
+  let(:winner1) { create(:member) }
+  let(:loser1) { create(:member) }
 
+  describe 'creation' do
     context 'when winner is not specified' do
       it 'raises exception' do
         expect { described_class.create!(loser: loser1) }.to raise_exception(
@@ -42,6 +42,16 @@ RSpec.describe Match do
         expect(match1.winner).to eq(winner1)
         expect(match1.loser).to eq(loser1)
       end
+    end
+  end
+
+  describe '#set_member_ranks' do
+    it 'invokes RankManager.set_ranks' do
+      allow(RankManager).to receive(:set_ranks)
+
+      described_class.create!(winner: winner1, loser: loser1)
+
+      expect(RankManager).to have_received(:set_ranks).with(winner1.id, loser1.id)
     end
   end
 end
