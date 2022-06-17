@@ -13,6 +13,10 @@ class Member < ApplicationRecord
     Match.where('winner_id = :self_id OR loser_id = :self_id', self_id: id)
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   private
 
   def rank_blank?

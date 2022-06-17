@@ -52,4 +52,12 @@ RSpec.describe Member do
       end
     end
   end
+
+  describe '#full_name' do
+    subject(:member) { create(:member, first_name: 'Randfirst', last_name: 'Randlast') }
+
+    it 'returns the concatenated first_name and last_name' do
+      expect(member.full_name).to eq('Randfirst Randlast')
+    end
+  end
 end
