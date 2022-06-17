@@ -16,11 +16,13 @@ ActiveRecord::Schema.define(version: 2022_06_15_130003) do
   enable_extension "plpgsql"
 
   create_table "matches", force: :cascade do |t|
-    t.bigint "winner_id", null: false
-    t.bigint "loser_id", null: false
+    t.bigint "player_a_id", null: false
+    t.bigint "player_b_id", null: false
+    t.bigint "winner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["loser_id"], name: "index_matches_on_loser_id"
+    t.index ["player_a_id"], name: "index_matches_on_player_a_id"
+    t.index ["player_b_id"], name: "index_matches_on_player_b_id"
     t.index ["winner_id"], name: "index_matches_on_winner_id"
   end
 
@@ -36,6 +38,7 @@ ActiveRecord::Schema.define(version: 2022_06_15_130003) do
     t.index ["rank"], name: "index_members_on_rank", unique: true
   end
 
-  add_foreign_key "matches", "members", column: "loser_id"
+  add_foreign_key "matches", "members", column: "player_a_id"
+  add_foreign_key "matches", "members", column: "player_b_id"
   add_foreign_key "matches", "members", column: "winner_id"
 end

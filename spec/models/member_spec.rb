@@ -36,8 +36,8 @@ RSpec.describe Member do
     context 'when 1 member had 2 matches' do
       subject(:member1) { create(:member) }
 
-      let(:match1) { create(:match, winner: member1) }
-      let(:match2) { create(:match, loser: member1) }
+      let(:match1) { create(:match, player_a: member1, winner: member1) }
+      let(:match2) { create(:match, player_a: member1) }
 
       it 'returns both' do
         expect(member1.matches).to contain_exactly(match1, match2)

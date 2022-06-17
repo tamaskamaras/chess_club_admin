@@ -14,3 +14,12 @@ Style/Documentation:
 
 RSpec/NestedGroups:
   Max: 6
+
+RSpec/MultipleExpectations:
+  Max: 10
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
+
+RSpec/ExampleLength:
+  Max: 10

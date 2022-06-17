@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :match do
-    association :winner, factory: :member
-    association :loser, factory: :member
+    association :player_a, factory: :member
+    association :player_b, factory: :member
   end
 end

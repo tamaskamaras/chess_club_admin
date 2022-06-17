@@ -2,7 +2,6 @@
 
 class Member < ApplicationRecord
   has_many :winnings, foreign_key: :winner_id, class_name: 'Match', dependent: :destroy
-  has_many :losses, foreign_key: :loser_id, class_name: 'Match', dependent: :destroy
 
   before_save :set_rank, if: :rank_blank?
 
@@ -10,7 +9,11 @@ class Member < ApplicationRecord
   validates :rank, uniqueness: true
 
   def matches
-    Match.where('winner_id = :self_id OR loser_id = :self_id', self_id: id)
+    Match.where('player_a_id = :self_id OR player_b_id = :self_id', self_id: id)
+  end
+
+  def losses
+    matches.where.not(winner_id: [nil, id])
   end
 
   def full_name
