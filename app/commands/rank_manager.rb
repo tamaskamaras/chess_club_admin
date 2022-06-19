@@ -19,13 +19,9 @@ class RankManager
 
   def call
     if draw?
-      unless adjacent_ranks?
-        flip_players(
-          lower_ranked_player,
-          player_ahead_of(lower_ranked_player)
-        )
-      end
+      flip_players(lower_ranked_player, player_ahead_of(lower_ranked_player)) unless adjacent_ranks?
     else
+      flip_players(higher_ranked_player, player_behind_of(higher_ranked_player))
     end
   end
 

@@ -65,11 +65,19 @@ RSpec.describe RankManager do
     end
 
     it 'the higher-ranked player will move one rank down' do
-      expect(player_2nd.rank).to eq(3)
+      expect(player_2nd.reload.rank).to eq(3)
     end
 
     it 'the lower-ranked player will move up by half the difference between their original ranks' do
-      expect(player_8th.rank).to eq(5)
+      expect(player_8th.reload.rank).to eq(5)
+    end
+
+    describe 'the rest of the interlocked members' do
+      it 'move one rank down', :aggregate_failures do
+        expect(player_5th.reload.rank).to eq(6)
+        expect(player_6th.reload.rank).to eq(7)
+        expect(player_7th.reload.rank).to eq(8)
+      end
     end
   end
 end
