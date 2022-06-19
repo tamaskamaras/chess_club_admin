@@ -20,15 +20,19 @@ class RankManager
   def call
     if draw?
       unless adjacent_ranks?
-        move_lower_player_up
+        flip_players(
+          lower_ranked_player,
+          player_ahead_of(lower_ranked_player)
+        )
       end
+    else
     end
   end
 
   private
 
   def rank_diff
-    (player_a.rank - player_b.rank).abs
+    @rank_diff ||= (player_a.rank - player_b.rank).abs
   end
 
   def adjacent_ranks?
@@ -47,20 +51,21 @@ class RankManager
     @lower_ranked_player ||= sorted_players.last
   end
 
-  def player_ahead_of(other_player)
-    Member.find_by_rank(other_player.rank - 1)
+  def player_ahead_of(other_player, by: 1)
+    Member.find_by_rank(other_player.rank - by)
   end
 
-  def move_lower_player_up
+  def player_behind_of(other_player, by: 1)
+    Member.find_by_rank(other_player.rank + by)
+  end
+
+  def flip_players(player1, player2)
     Member.transaction do
-      replaced_player = player_ahead_of(lower_ranked_player)
-      reward_rank = replaced_player.rank
-
-      replaced_player.update!(rank: nil)
-
-      lower_ranked_player.update!(rank: reward_rank)
-
-      replaced_player.update!(rank: reward_rank + 1)
+      player1_rank = player1.rank
+      player2_rank = player2.rank
+      player1.update!(rank: nil)
+      player2.update!(rank: player1_rank)
+      player1.update!(rank: player2_rank)
     end
   end
 end
