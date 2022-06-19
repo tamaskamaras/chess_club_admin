@@ -14,16 +14,14 @@ RSpec.shared_examples 'unchanged ranks' do
 end
 
 RSpec.describe RankManager do
-  let!(:player_1st) { create(:member, rank: 1) }
+  let!(:player_1st) { create(:member, rank: 1) } # rubocop:disable RSpec/LetSetup
   let!(:player_2nd) { create(:member, rank: 2) }
   let!(:player_3rd) { create(:member, rank: 3) }
-  let!(:player_4th) { create(:member, rank: 4) }
+  let!(:player_4th) { create(:member, rank: 4) } # rubocop:disable RSpec/LetSetup
   let!(:player_5th) { create(:member, rank: 5) }
   let!(:player_6th) { create(:member, rank: 6) }
   let!(:player_7th) { create(:member, rank: 7) }
   let!(:player_8th) { create(:member, rank: 8) }
-
-
 
   context 'when a higher-ranked player wins against their opponent' do
     before do
@@ -52,16 +50,24 @@ RSpec.describe RankManager do
       end
 
       describe 'the player who\'s position was taken by the lower-ranked player' do
-        it 'loses 1 rank'
+        it 'loses 1 rank' do
+          expect(player_6th.rank).to eq(7)
+        end
       end
     end
   end
 
   context 'when a lower-ranked player beats a higher-ranked player' do
-    let(:player_2th) {}
-    let(:player_8th) {}
+    before do
+      create(:match, player_a: player_2nd, player_b: player_8th, winner: player_8th)
+    end
 
-    it 'the higher-ranked player will move one rank down'
-    it 'the lower-ranked player will move up by half the difference between their original ranks'
+    it 'the higher-ranked player will move one rank down' do
+      expect(player_2nd.rank).to eq(3)
+    end
+
+    it 'the lower-ranked player will move up by half the difference between their original ranks' do
+      expect(player_8th.rank).to eq(5)
+    end
   end
 end
