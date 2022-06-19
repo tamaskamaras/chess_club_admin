@@ -1,24 +1,19 @@
-# README
+## Chess Club Admin platform
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple platform for managing Members and Matches of a Chess Club
 
-Things you may want to cover:
+## Further improvements
 
-* Ruby version
+**Some** of the things to improve:
 
-* System dependencies
+* **IMPLEMENT A PROPER VIEW** with the missing CRUD operations
 
-* Configuration
+* A lot of instance methods are lacking unit tests
 
-* Database creation
+* Match#winner_id: validate that it is IN [player_a, player_b]
 
-* Database initialization
+* fix the rest of the Rubocop warnings
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+* and many other things :)
 
 * ...
