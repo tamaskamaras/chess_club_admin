@@ -67,7 +67,7 @@ RSpec.describe Match do
 
       described_class.create!(player_a: member1, player_b: member2)
 
-      expect(RankManager).to have_received(:set_ranks).with(member1.id, member2.id)
+      expect(RankManager).to have_received(:set_ranks).with(member1.id, member2.id, nil)
     end
   end
 end
