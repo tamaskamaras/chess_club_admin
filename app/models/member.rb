@@ -3,7 +3,7 @@
 class Member < ApplicationRecord
   has_many :winnings, foreign_key: :winner_id, class_name: 'Match', dependent: :destroy
 
-  before_save :set_rank, if: :rank_blank?
+  before_create :set_rank, if: :rank_blank?
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
   validates :rank, uniqueness: true

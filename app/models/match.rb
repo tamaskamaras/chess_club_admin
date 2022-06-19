@@ -9,12 +9,6 @@ class Match < ApplicationRecord
 
   after_save :set_member_ranks, if: :members_changed?
 
-  def loser
-    return if draw?
-
-    winner_id == player_a_id ? player_b : player_a
-  end
-
   private
 
   def set_member_ranks

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rails_helper'
+
 RSpec.shared_examples 'unchanged ranks' do
   it 'the ranks remain unchanged', :aggregate_failures do
     expect(player_1st.rank).to eq(1)
@@ -34,7 +36,7 @@ RSpec.describe RankManager do
   context 'when the Match is a draw' do
     context 'when the two players are adjacent' do
       before do
-        create(:match, player_a: player_2nd, player_b: player_3rd, winner: player_2nd)
+        create(:match, player_a: player_2nd, player_b: player_3rd)
       end
 
       it_behaves_like 'unchanged ranks'
@@ -42,16 +44,16 @@ RSpec.describe RankManager do
 
     context 'when the two players have more then 1 rank difference' do
       before do
-        create(:match, player_a: player_2nd, player_b: player_7th, winner: player_2nd)
+        create(:match, player_a: player_2nd, player_b: player_7th)
       end
 
       it 'the lower-ranked player gains one position' do
-        expect(player_7th.rank).to eq(6)
+        expect(player_7th.reload.rank).to eq(6)
       end
 
       describe 'the player who\'s position was taken by the lower-ranked player' do
         it 'loses 1 rank' do
-          expect(player_6th.rank).to eq(7)
+          expect(player_6th.reload.rank).to eq(7)
         end
       end
     end
