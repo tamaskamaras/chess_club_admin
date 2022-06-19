@@ -1,0 +1,7 @@
+%h1 Members
+- @members.each do |member|
+  %p
+    %div= member.full_name
+    %div= member.email
+    %div= member.birthday.to_date
+    %div= member.rank
